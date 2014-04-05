@@ -1,0 +1,2 @@
+def SutvarkytiFaila(SkaitomasFailas, RezultatuFailas):
+    
