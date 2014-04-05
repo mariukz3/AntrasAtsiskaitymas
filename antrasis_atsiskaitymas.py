@@ -10,3 +10,10 @@ def SutvarkytiFaila(SkaitomasFailas, RezultatuFailas):
             letter for line in f
             for letter in line.lower()
             if letter in ascii_lowercase)))
+
+    with open(str(SkaitomasFailas)) as f:
+        for line in f:
+            words = line.split()
+            num_lines += 1
+            num_words += len(words)
+            num_chars += len(line)
