@@ -35,3 +35,8 @@ def SurinktiFailoStatistikas(SkaitomasFailas, RezultatuFailas):
 def SujungtiFailus(RezultatuFailas):
 
     read_files = glob.glob('Read*.txt')
+
+    with open(str(RezultatuFailas), "wb") as outfile:
+        for f in read_files:
+            with open(f, "rb") as infile:
+                outfile.write(infile.read())
