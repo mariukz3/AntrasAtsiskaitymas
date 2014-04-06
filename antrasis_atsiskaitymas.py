@@ -31,3 +31,5 @@ def SurinktiFailoStatistikas(SkaitomasFailas, RezultatuFailas):
     result.write(str(num_chars))
 
     result.close()
+
+def SujungtiFailus(RezultatuFailas):
