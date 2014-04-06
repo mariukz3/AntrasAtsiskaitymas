@@ -63,3 +63,7 @@ def SurinktiFailuStatistikas(RezultatuFailas):
     result.write('\nBendras failu simboliu skaicius:')
     result.write(str(GLOBCHARS))
     result.close()
+
+SurinktiFailoStatistikas('Read1.txt', 'Statistika1.txt')
+SurinktiFailoStatistikas('Read2.txt', 'Statistika2.txt')
+SurinktiFailoStatistikas('Read3.txt', 'Statistika3.txt')
