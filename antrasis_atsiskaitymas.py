@@ -35,6 +35,13 @@ def SurinktiFailoStatistikas(SkaitomasFailas, RezultatuFailas):
     result.write('\nSimboliu skaicius:')
     result.write(str(num_chars))
 
+    global GLOBLINES
+    GLOBLINES = GLOBLINES + num_lines
+    global GLOBWORDS
+    GLOBWORDS = GLOBWORDS + num_words
+    global GLOBCHARS
+    GLOBCHARS = GLOBCHARS + num_chars
+
     result.close()
 
 def SujungtiFailus(RezultatuFailas):
