@@ -33,3 +33,5 @@ def SurinktiFailoStatistikas(SkaitomasFailas, RezultatuFailas):
     result.close()
 
 def SujungtiFailus(RezultatuFailas):
+
+    read_files = glob.glob('Read*.txt')
