@@ -1,5 +1,10 @@
 from string import ascii_lowercase
 from collections import Counter
+import glob
+
+GLOBLINES = 0
+GLOBWORDS = 0
+GLOBCHARS = 0
 
 def SurinktiFailoStatistikas(SkaitomasFailas, RezultatuFailas):
     
