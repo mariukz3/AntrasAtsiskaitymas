@@ -1,3 +1,6 @@
+from string import ascii_lowercase
+from collections import Counter
+
 def SutvarkytiFaila(SkaitomasFailas, RezultatuFailas):
     
     num_lines = 0
