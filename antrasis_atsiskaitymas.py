@@ -102,3 +102,16 @@ def SurinktiFailuStatistikas(rezultatu_failas):
     result.write('\nBendras failu simboliu skaicius:')
     result.write(str(GLOBCHARS))
     result.close()
+
+def read_words(words_file):
+    open_file = open(words_file, 'r')
+    words_list =[]
+    contents = open_file.readlines()
+    for i in range(len(contents)):
+         words_list.extend(contents[i].split())
+    return words_list
+    open_file.close()
+
+list = read_words('Read1.txt')
+counts = Counter(list)
+print(counts)
