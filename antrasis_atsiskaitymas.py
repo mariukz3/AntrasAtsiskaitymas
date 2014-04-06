@@ -40,3 +40,5 @@ def SujungtiFailus(RezultatuFailas):
         for f in read_files:
             with open(f, "rb") as infile:
                 outfile.write(infile.read())
+
+def SurinktiFailuStatistikas(RezultatuFailas):
