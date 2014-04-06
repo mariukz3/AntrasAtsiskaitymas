@@ -1,7 +1,7 @@
 from string import ascii_lowercase
 from collections import Counter
 
-def SurinktiFailoStatistika(SkaitomasFailas, RezultatuFailas):
+def SurinktiFailoStatistikas(SkaitomasFailas, RezultatuFailas):
     
     num_lines = 0
     num_words = 0
