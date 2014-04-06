@@ -1,17 +1,35 @@
 from string import ascii_lowercase
 from collections import Counter
 import glob
+import os
 
-# Globalus kintamieji bendrai statistikai kaupti
+# Globalus kintamieji bendrai statistikai vesti
 
+GLOBLIST = []
 GLOBLINES = 0
 GLOBWORDS = 0
 GLOBCHARS = 0
 
+# Atidaromas statistiku kaupimo failas
+
+GLOBRESULT = open('STATISTIKA.txt', 'w')
+
+# Funkcija zodziams nuskaityti
+
+
+def SkaitytiZodzius(skaitomas_failas):
+    atidarytas = open(skaitomas_failas, 'r')
+    zodziai = []
+    contents = atidarytas.readlines()
+    for i in range(len(contents)):
+        zodziai.extend(contents[i].split())
+    return zodziai
+    atidarytas.close()
+
 # Funkcija vieno failo statistikoms kaupti
 
 
-def SurinktiFailoStatistikas(skaitomas_failas, rezultatu_failas):
+def SurinktiFailoStatistikas(skaitomas_failas):
 
 # Statistiku kintamieji
 
@@ -21,19 +39,27 @@ def SurinktiFailoStatistikas(skaitomas_failas, rezultatu_failas):
 
 # Rasomo failo kintamojo sukurimas
 
-    result = open(rezultatu_failas, 'w')
-
-# Raidziu tipo ir ju pasikartojimo daznumo algoritmas
+    GLOBRESULT.write("\nFAILAS " + str(skaitomas_failas))
 
     with open(str(skaitomas_failas)) as f:
-        result.write("Raidziu yra:")
+        GLOBRESULT.write("\nRAIDES faile:")
 
 # Raidziu statistikos isvedimas
 
-        result.write(str(Counter(
+        GLOBRESULT.write(str(Counter(
             letter for line in f
             for letter in line.lower()
             if letter in ascii_lowercase)))
+
+# Zodziu statistikos isvedimas
+
+    SkaitytiZodzius(skaitomas_failas)
+    list = SkaitytiZodzius(skaitomas_failas)
+
+    global GLOBLIST
+    GLOBLIST = GLOBLIST + list
+    counts = Counter(list)
+    GLOBRESULT.write("\nZODZIAI faile: " + "\n" + str(counts))
 
 # Eiluciu skaiciaus, zodziu skaiciaus,
 # simboliu skaiciaus statistiku apdorojimas
@@ -45,18 +71,6 @@ def SurinktiFailoStatistikas(skaitomas_failas, rezultatu_failas):
             num_words += len(words)
             num_chars += len(line)
 
-# ...ju irasymas i atskira faila ir jo uzdarymas
-
-    result.write('\nEiluciu skaicius:')
-    result.write(str(num_lines))
-    result.write('\nZodziu skaicius:')
-    result.write(str(num_words))
-    result.write('\nSimboliu skaicius:')
-    result.write(str(num_chars))
-    result.close()
-
-# Globalios statistikos kintamuju apdorojimas
-
     global GLOBLINES
     GLOBLINES = GLOBLINES + num_lines
     global GLOBWORDS
@@ -64,54 +78,39 @@ def SurinktiFailoStatistikas(skaitomas_failas, rezultatu_failas):
     global GLOBCHARS
     GLOBCHARS = GLOBCHARS + num_chars
 
-    result.close()
+# ...ju surasymas
 
-# Funkcija sujungti visiems failu tekstams i viena
+    GLOBRESULT.write("\nEiluciu skaicius: " + str(num_lines) +
+                     "\nZodziu skaicius: " + str(num_words) +
+                     "\nSimboliu skaicius: " + str(num_chars) + "\n")
 
-
-def SujungtiFailus(rezultatu_failas):
-
-# Kintamasis atskirti tik fialus, prasidedancius
-# su Read + simbolis kiekvieno identifikacijai
-
-    read_files = glob.glob('Read*.txt')
-
-# Bendro teksto rasymo algoritmas
-
-    with open(str(rezultatu_failas), "wb") as outfile:
-        for f in read_files:
-            with open(f, "rb") as infile:
-                outfile.write(infile.read())
-
-# Funkcija ivesti bendrai visu failu statistikai
-# i atskira faila (globalus kintamieji)
+# Funkcija bendrai failu statistikai suvedineti
 
 
-def SurinktiFailuStatistikas(rezultatu_failas):
+def BendraStatistika():
+    GLOBRESULT.write("\nBENDRA STATISTIKA: ")
+    visi_zodziai = Counter(GLOBLIST)
+    GLOBRESULT.write("\n" + "Zodziai ir daznis: " + str(visi_zodziai))
+    GLOBRESULT.write("\n" + "Eilutes: " + str(GLOBLINES))
+    GLOBRESULT.write("\n" + "Zodziai: " + str(GLOBWORDS))
+    GLOBRESULT.write("\n" + "Simboliai: " + str(GLOBCHARS))
 
-# Iseities failo kintamasis result
+# Direktorijos nuskaitymas
 
-    result = open(rezultatu_failas, 'w')
+direktorija = raw_input("Iveskite direktorija: ")
+print "IVESTIS PRIIMTA."
 
-# Irasymo ir uzdarymo metodai
+print ("Rasti tokie failai direktorijoje " + str(direktorija) + ":")
 
-    result.write('\nBendras failu eiluciu skaicius:')
-    result.write(str(GLOBLINES))
-    result.write('\nBendras failu zodziu skaicius:')
-    result.write(str(GLOBWORDS))
-    result.write('\nBendras failu simboliu skaicius:')
-    result.write(str(GLOBCHARS))
-    result.close()
+# Ivestos direktorijos apdorojimas
 
-def read_words(words_file):
-    open_file = open(words_file, 'r')
-    words_list =[]
-    contents = open_file.readlines()
-    for i in range(len(contents)):
-         words_list.extend(contents[i].split())
-    return words_list
-    open_file.close()
+for file in os.listdir(str(direktorija)):
+    if file.endswith(".txt"):
+        SurinktiFailoStatistikas(str(file))
+        print (str(file))
 
-list = read_words('Read1.txt')
-counts = Counter(list)
-print(counts)
+# Bendros failu statistikos isvedimas
+
+BendraStatistika()
+
+GLOBRESULT.close()
