@@ -6,8 +6,9 @@ GLOBLINES = 0
 GLOBWORDS = 0
 GLOBCHARS = 0
 
+
 def SurinktiFailoStatistikas(SkaitomasFailas, RezultatuFailas):
-    
+
     num_lines = 0
     num_words = 0
     num_chars = 0
@@ -44,6 +45,7 @@ def SurinktiFailoStatistikas(SkaitomasFailas, RezultatuFailas):
 
     result.close()
 
+
 def SujungtiFailus(RezultatuFailas):
 
     read_files = glob.glob('Read*.txt')
@@ -52,6 +54,7 @@ def SujungtiFailus(RezultatuFailas):
         for f in read_files:
             with open(f, "rb") as infile:
                 outfile.write(infile.read())
+
 
 def SurinktiFailuStatistikas(RezultatuFailas):
 
