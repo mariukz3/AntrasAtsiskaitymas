@@ -54,3 +54,12 @@ def SujungtiFailus(RezultatuFailas):
                 outfile.write(infile.read())
 
 def SurinktiFailuStatistikas(RezultatuFailas):
+
+    result = open(RezultatuFailas, 'w')
+    result.write('\nBendras failu eiluciu skaicius:')
+    result.write(str(GLOBLINES))
+    result.write('\nBendras failu zodziu skaicius:')
+    result.write(str(GLOBWORDS))
+    result.write('\nBendras failu simboliu skaicius:')
+    result.write(str(GLOBCHARS))
+    result.close()
