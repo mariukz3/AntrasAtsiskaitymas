@@ -5,14 +5,14 @@ import os
 
 # Globalus kintamieji bendrai statistikai vesti
 
-GLOBLIST = []
-GLOBLINES = 0
-GLOBWORDS = 0
-GLOBCHARS = 0
+glob_list = []
+glob_lines = 0
+glob_words = 0
+glob_chars = 0
 
 # Atidaromas statistiku kaupimo failas
 
-GLOBRESULT = open('STATISTIKA.txt', 'w')
+glob_result = open('STATISTIKA.txt', 'w')
 
 # Funkcija zodziams nuskaityti
 
@@ -39,14 +39,14 @@ def SurinktiFailoStatistikas(skaitomas_failas):
 
 # Rasomo failo kintamojo sukurimas
 
-    GLOBRESULT.write("\nFAILAS " + str(skaitomas_failas))
+    glob_result.write("\nFAILAS " + str(skaitomas_failas))
 
     with open(str(skaitomas_failas)) as f:
-        GLOBRESULT.write("\nRAIDES faile:")
+        glob_result.write("\nRAIDES faile:")
 
 # Raidziu statistikos isvedimas
 
-        GLOBRESULT.write(str(Counter(
+        glob_result.write(str(Counter(
             letter for line in f
             for letter in line.lower()
             if letter in ascii_lowercase)))
@@ -56,10 +56,10 @@ def SurinktiFailoStatistikas(skaitomas_failas):
     SkaitytiZodzius(skaitomas_failas)
     list = SkaitytiZodzius(skaitomas_failas)
 
-    global GLOBLIST
-    GLOBLIST = GLOBLIST + list
+    global glob_list
+    glob_list = glob_list + list
     counts = Counter(list)
-    GLOBRESULT.write("\nZODZIAI faile: " + "\n" + str(counts))
+    glob_result.write("\nZODZIAI faile: " + "\n" + str(counts))
 
 # Eiluciu skaiciaus, zodziu skaiciaus,
 # simboliu skaiciaus statistiku apdorojimas
@@ -71,16 +71,16 @@ def SurinktiFailoStatistikas(skaitomas_failas):
             num_words += len(words)
             num_chars += len(line)
 
-    global GLOBLINES
-    GLOBLINES = GLOBLINES + num_lines
-    global GLOBWORDS
-    GLOBWORDS = GLOBWORDS + num_words
-    global GLOBCHARS
-    GLOBCHARS = GLOBCHARS + num_chars
+    global glob_lines
+    glob_lines = glob_lines + num_lines
+    global glob_words
+    glob_words = glob_words + num_words
+    global glob_chars
+    glob_chars = glob_chars + num_chars
 
 # ...ju surasymas
 
-    GLOBRESULT.write("\nEiluciu skaicius: " + str(num_lines) +
+    glob_result.write("\nEiluciu skaicius: " + str(num_lines) +
                      "\nZodziu skaicius: " + str(num_words) +
                      "\nSimboliu skaicius: " + str(num_chars) + "\n")
 
@@ -88,12 +88,12 @@ def SurinktiFailoStatistikas(skaitomas_failas):
 
 
 def BendraStatistika():
-    GLOBRESULT.write("\nBENDRA STATISTIKA: ")
-    visi_zodziai = Counter(GLOBLIST)
-    GLOBRESULT.write("\n" + "Zodziai ir daznis: " + str(visi_zodziai))
-    GLOBRESULT.write("\n" + "Eilutes: " + str(GLOBLINES))
-    GLOBRESULT.write("\n" + "Zodziai: " + str(GLOBWORDS))
-    GLOBRESULT.write("\n" + "Simboliai: " + str(GLOBCHARS))
+    glob_result.write("\nBENDRA STATISTIKA: ")
+    visi_zodziai = Counter(glob_list)
+    glob_result.write("\n" + "Zodziai ir daznis: " + str(visi_zodziai))
+    glob_result.write("\n" + "Eilutes: " + str(glob_lines))
+    glob_result.write("\n" + "Zodziai: " + str(glob_words))
+    glob_result.write("\n" + "Simboliai: " + str(glob_chars))
 
 # Direktorijos nuskaitymas
 
@@ -113,4 +113,4 @@ for file in os.listdir(str(direktorija)):
 
 BendraStatistika()
 
-GLOBRESULT.close()
+glob_result.close()
